@@ -7,8 +7,8 @@
 #include <iomanip>
 #include <functional> 
 
-#include <complex>       // ÓÃÓÚ std::complex
-#include <cmath>         // ÓÃÓÚ cos, sin, std::abs
+#include <complex>       // ç”¨äº std::complex
+#include <cmath>         // ç”¨äº cos, sin, std::abs
 
 #pragma comment(lib, "mf.lib")
 #pragma comment(lib, "mfplat.lib")
@@ -25,28 +25,28 @@
 class SR2_Audio
 {
 	/*IMF*/
-	IMFSourceResolver* m_pResolver;		// Ã½ÌåÔ´½âÎöÆ÷
+	IMFSourceResolver* m_pResolver;		// åª’ä½“æºè§£æå™¨
 	IMFMediaSource* m_pSource;
-	IMFSourceReader* m_pReader;			// Ô´¶ÁÈ¡Æ÷
+	IMFSourceReader* m_pReader;			// æºè¯»å–å™¨
 
-	/*ÒôÆµÊı¾İ*/
-	UINT64 m_u64Duration;				// Ê±³¤¶È
-	UINT32 m_u64SampleRate;				// ²ÉÑùÂÊ
-	UINT32 m_u64Channels;				// ÉùµÀÊı
-	UINT32 m_u64BitsPerSample;			// Î»Éî
-	INT32* m_pSamples;					// ²ÉÑùµãÊı×é
-	UINT64 m_u64SampleCount;			// Êµ¼ÊµÄ²ÉÑùµã¸öÊı
+	/*éŸ³é¢‘æ•°æ®*/
+	UINT64 m_u64Duration;				// æ—¶é•¿åº¦
+	UINT32 m_u64SampleRate;				// é‡‡æ ·ç‡
+	UINT32 m_u64Channels;				// å£°é“æ•°
+	UINT32 m_u64BitsPerSample;			// ä½æ·±
+	INT32* m_pSamples;					// é‡‡æ ·ç‚¹æ•°ç»„
+	UINT64 m_u64SampleCount;			// å®é™…çš„é‡‡æ ·ç‚¹ä¸ªæ•°
 
-	/*´«²Î ºÍ ²úÉúµÄÊı¾İ*/
-	WCHAR m_pAudioFile[MAX_PATH];		// Ã½ÌåÎÄ¼şÎ»ÖÃ
-	UINT32 m_uGameFrameRate;			// ÓÎÏ·ÄÚµÄÖ¡Êı
-	UINT32 m_uAudioFrameRateProportion;	// ÉùÒôÖ¡ÊıµÄ±ÈÀı Í¨³£1 ÓÎÏ·ÄÚÒ»Ö¡ÒôÀÖ²¥·Å1Ö¡
-	UINT32 m_uFrameNumberPerFrame;		// ÓÎÏ·ÄÚÃ¿Ò»Ö¡ ÄæÏòÀëÉ¢¸µÀïÒ¶ °üº¬µÄ²ÉÑùµãÊı
-	UINT32 m_uNumFrames;				// ÓÎÏ·ÄÚÒ»¹²¶àÉÙ¸öÉùÒôÖ¡
-	FLOAT* m_pAmplitude;				// Ã¿Ö¡Ã¿ÆµÕñ·ùÊı×é
-	UINT32 m_uGeneratorsNumber;			// ÓÎÏ·ÄÚÕıÏÒ·¢·¢ÉúÆ÷ÊıÁ¿ BeepÊıÁ¿
-	UINT32* m_pFrequencyInGame;			// ÓÎÏ·ÖĞÃ¿Ö¡ Ã¿¸öBeepµÄÆµÂÊ
-	FLOAT* m_pAmplitudeInGame;			// ÓÎÏ·ÖĞÃ¿Ö¡ Ã¿¸öBeepÕñ·ù
+	/*ä¼ å‚ å’Œ äº§ç”Ÿçš„æ•°æ®*/
+	WCHAR m_pAudioFile[MAX_PATH];		// åª’ä½“æ–‡ä»¶ä½ç½®
+	UINT32 m_uGameFrameRate;			// æ¸¸æˆå†…çš„å¸§æ•°
+	UINT32 m_uAudioFrameRateProportion;	// å£°éŸ³å¸§æ•°çš„æ¯”ä¾‹ é€šå¸¸1 æ¸¸æˆå†…ä¸€å¸§éŸ³ä¹æ’­æ”¾1å¸§
+	UINT32 m_uFrameNumberPerFrame;		// æ¸¸æˆå†…æ¯ä¸€å¸§ é€†å‘ç¦»æ•£å‚…é‡Œå¶ åŒ…å«çš„é‡‡æ ·ç‚¹æ•°
+	UINT32 m_uNumFrames;				// æ¸¸æˆå†…ä¸€å…±å¤šå°‘ä¸ªå£°éŸ³å¸§
+	FLOAT* m_pAmplitude;				// æ¯å¸§æ¯é¢‘æŒ¯å¹…æ•°ç»„
+	UINT32 m_uGeneratorsNumber;			// æ¸¸æˆå†…æ­£å¼¦å‘å‘ç”Ÿå™¨æ•°é‡ Beepæ•°é‡
+	UINT32* m_pFrequencyInGame;			// æ¸¸æˆä¸­æ¯å¸§ æ¯ä¸ªBeepçš„é¢‘ç‡
+	FLOAT* m_pAmplitudeInGame;			// æ¸¸æˆä¸­æ¯å¸§ æ¯ä¸ªBeepæŒ¯å¹…
 
 	struct WorkerThreadInput 
 	{
@@ -58,12 +58,12 @@ class SR2_Audio
 
 	public:
 
-		UINT32 m_uProgress;				// ¹¤×÷½ø¶È
+		UINT32 m_uProgress;				// å·¥ä½œè¿›åº¦
 
-		/* ------------------- ¹¹Ôì ------------------ */
+		/* ------------------- æ„é€  ------------------ */
 		SR2_Audio(WCHAR* AudioFile)
 		{
-			// ³õÊ¼»¯ÀàÄÚ´æ
+			// åˆå§‹åŒ–ç±»å†…å­˜
 			m_pSamples = NULL;
 			m_pAmplitude = NULL;
 			m_pResolver = NULL;
@@ -71,29 +71,29 @@ class SR2_Audio
 			m_uAudioFrameRateProportion = 1;
 			m_uGeneratorsNumber = 512;
 
-			// ³õÊ¼»¯ Media Foundation
+			// åˆå§‹åŒ– Media Foundation
 			HRESULT hr = 0;
 			hr = MFStartup(MF_VERSION, 0);
 
-			// ´´½¨½âÎöÆ÷
+			// åˆ›å»ºè§£æå™¨
 			MFCreateSourceResolver(&m_pResolver);
 
 			SetSourceFiles(AudioFile);
 		}
 		SR2_Audio()
 		{
-			// ³õÊ¼»¯ÀàÄÚ´æ
+			// åˆå§‹åŒ–ç±»å†…å­˜
 			m_pSamples = NULL;
 			m_pAmplitude = NULL;
 			m_pResolver = NULL;
 			m_uGameFrameRate = 60;
 			m_uAudioFrameRateProportion = 1;
 
-			// ³õÊ¼»¯ Media Foundation
+			// åˆå§‹åŒ– Media Foundation
 			HRESULT hr = 0;
 			hr = MFStartup(MF_VERSION, 0);
 
-			// ´´½¨½âÎöÆ÷
+			// åˆ›å»ºè§£æå™¨
 			MFCreateSourceResolver(&m_pResolver);
 		}
 		~SR2_Audio()
@@ -102,7 +102,7 @@ class SR2_Audio
 			m_pSource->Release();
 		}
 
-		/* --------------- ÉèÖÃÎÄ¼şÎ»ÖÃ -------------- */
+		/* --------------- è®¾ç½®æ–‡ä»¶ä½ç½® -------------- */
 		int SetSourceFiles(WCHAR* AudioFile)
 		{
 			int counter = 0;
@@ -118,7 +118,7 @@ class SR2_Audio
 		}
 
 
-		/* ---------- Ìí¼Óµ½ĞÂµÄ×Ô¶¨Òå×é¼ş ----------- */
+		/* ---------- æ·»åŠ åˆ°æ–°çš„è‡ªå®šä¹‰ç»„ä»¶ ----------- */
 		int CreateToSubassemblies()
 		{
 			if(m_pAudioFile == NULL)
@@ -136,19 +136,19 @@ class SR2_Audio
 
 
 	private:
-		/* ------------ ´ÓÎÄ¼şÂ·¾¶¶ÁÈ¡ÒôÆµ ----------- */
+		/* ------------ ä»æ–‡ä»¶è·¯å¾„è¯»å–éŸ³é¢‘ ----------- */
 		int CreateObjectFromFile()
 		{
 			HRESULT hr = CoInitialize(NULL);
 
-			// ´ÓÎÄ¼ş´´½¨Ã½ÌåÔ´
+			// ä»æ–‡ä»¶åˆ›å»ºåª’ä½“æº
 			MF_OBJECT_TYPE objType;
 			IUnknown* pUnknown = NULL;
 			hr = m_pResolver->CreateObjectFromURL(m_pAudioFile, MF_RESOLUTION_MEDIASOURCE, NULL, &objType, &pUnknown);
 			#ifdef DEBUG
 				if (FAILED(hr)) 
 				{
-					std::cout << "Ã½ÌåÔ´´´½¨Ê§°Ü" << hr << std::endl;
+					std::cout << "åª’ä½“æºåˆ›å»ºå¤±è´¥" << hr << std::endl;
 					return 1;
 				}
 			#endif
@@ -159,23 +159,23 @@ class SR2_Audio
 			#ifdef DEBUG
 				if (FAILED(hr)) 
 				{
-					std::cout << "ÒôÆµ¶ÁÈ¡Ê§°Ü" << hr << std::endl;
+					std::cout << "éŸ³é¢‘è¯»å–å¤±è´¥" << hr << std::endl;
 					return 1;
 				}
 			#endif
 
-			// ´´½¨Ô´¶ÁÈ¡Æ÷
+			// åˆ›å»ºæºè¯»å–å™¨
 			m_pReader = NULL;
 			hr = MFCreateSourceReaderFromMediaSource(m_pSource, NULL, &m_pReader);
 			#ifdef DEBUG
 				if (FAILED(hr))
 				{
-					std::cout << "Ô´¶ÁÈ¡Æ÷´´½¨Ê§°Ü" << hr << std::endl;
+					std::cout << "æºè¯»å–å™¨åˆ›å»ºå¤±è´¥" << hr << std::endl;
 					return 1;
 				}
 			#endif
 
-			// ÉèÖÃÊä³ö¸ñÊ½Îª PCM
+			// è®¾ç½®è¾“å‡ºæ ¼å¼ä¸º PCM
 			IMFMediaType* pAudioType = NULL;
 			hr = MFCreateMediaType(&pAudioType);
 			hr = pAudioType->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Audio);
@@ -185,27 +185,27 @@ class SR2_Audio
 
 			#ifdef DEBUG
 				if (FAILED(hr)) {
-					std::cout << "ÒôÆµ¶ÁÈ¡Ê§°Ü" << hr << std::endl;
+					std::cout << "éŸ³é¢‘è¯»å–å¤±è´¥" << hr << std::endl;
 					return 1;
 				}
-				std::cout << "¶ÁÈ¡³É¹¦" << std::endl;
+				std::cout << "è¯»å–æˆåŠŸ" << std::endl;
 			#endif
 
 			return 0;
 		}
 
 
-		/* --------------- ½âÎöÒôÆµĞÅÏ¢ -------------- */
+		/* --------------- è§£æéŸ³é¢‘ä¿¡æ¯ -------------- */
 		int ParseAudioInformation()
 		{	
 			HRESULT hr = 0;
 
-			// ¶ÁÈ¡ÒôÆµĞÅÏ¢ IMFPresentationDescriptor
+			// è¯»å–éŸ³é¢‘ä¿¡æ¯ IMFPresentationDescriptor
 			IMFPresentationDescriptor* pPD = NULL;
 			hr = m_pSource->CreatePresentationDescriptor(&pPD);
 			#ifdef DEBUG
 				if (FAILED(hr)) {
-					std::cout << "ÒôÆµ½âÎöÊ§°Ü" << hr << std::endl;
+					std::cout << "éŸ³é¢‘è§£æå¤±è´¥" << hr << std::endl;
 					return 1;
 				}
 				
@@ -213,12 +213,12 @@ class SR2_Audio
 			pPD->GetUINT64(MF_PD_DURATION, &m_u64Duration);
 			pPD->Release();
 
-			// ¶ÁÈ¡ÒôÆµĞÅÏ¢ IMFMediaType
+			// è¯»å–éŸ³é¢‘ä¿¡æ¯ IMFMediaType
 			IMFMediaType* pOutputType = NULL;
 			hr = m_pReader->GetCurrentMediaType(MF_SOURCE_READER_FIRST_AUDIO_STREAM, &pOutputType);
 			#ifdef DEBUG
 				if (FAILED(hr)) {
-					std::cout << "ÒôÆµ½âÎöÊ§°Ü" << hr << std::endl;
+					std::cout << "éŸ³é¢‘è§£æå¤±è´¥" << hr << std::endl;
 					return 1;
 				}
 			#endif
@@ -228,27 +228,27 @@ class SR2_Audio
 			pOutputType->Release();
 
 			#ifdef DEBUG
-				std::cout << "ÒÑ½âÎöÒôÆµ" << std::endl;
-				std::cout << "\tÊ±³¤£º  \t" << m_u64Duration		<< "(100ns)"	<< std::endl;
-				std::cout << "\tÉùµÀÊı£º\t" << m_u64Channels		<< "(ÉùµÀ)"	<< std::endl;
-				std::cout << "\t²ÉÑùÂÊ£º\t" << m_u64SampleRate		<< "(Hz)"		<< std::endl;
-				std::cout << "\tÎ»Éî£º  \t" << m_u64BitsPerSample	<< "(Bit)"		<< std::endl;
+				std::cout << "å·²è§£æéŸ³é¢‘" << std::endl;
+				std::cout << "\tæ—¶é•¿ï¼š  \t" << m_u64Duration		<< "(100ns)"	<< std::endl;
+				std::cout << "\tå£°é“æ•°ï¼š\t" << m_u64Channels		<< "(å£°é“)"	<< std::endl;
+				std::cout << "\té‡‡æ ·ç‡ï¼š\t" << m_u64SampleRate		<< "(Hz)"		<< std::endl;
+				std::cout << "\tä½æ·±ï¼š  \t" << m_u64BitsPerSample	<< "(Bit)"		<< std::endl;
 			#endif
 			return 0;
 		}
 
 
-		/* ---------- ÓÃÔ´¶ÁÈ¡Æ÷¶ÁÈ¡²ÉÑùµã ----------- */
+		/* ---------- ç”¨æºè¯»å–å™¨è¯»å–é‡‡æ ·ç‚¹ ----------- */
 		int GetSamplesList()
 		{
-			// ¼ÆËã×Ü²ÉÑùµãÊı µ¥ÉùµÀ´¦Àí
+			// è®¡ç®—æ€»é‡‡æ ·ç‚¹æ•° å•å£°é“å¤„ç†
 			UINT64 totalSamples = (m_u64Duration * m_u64SampleRate) / 10000000ULL;
 
-			// ÉêÇë²ÉÑùµã¿Õ¼ä
+			// ç”³è¯·é‡‡æ ·ç‚¹ç©ºé—´
 			if(m_pSamples)free(m_pSamples);
 			m_pSamples = (INT32*)malloc(totalSamples * sizeof(INT32));
 
-			// ´ÓÍ·¿ªÊ¼¶ÁÈ¡ËùÓĞÑù±¾
+			// ä»å¤´å¼€å§‹è¯»å–æ‰€æœ‰æ ·æœ¬
 			LONGLONG lastSampleEndTimestamp = -1;
 			INT32 bytesPerSampleGroup = (m_u64BitsPerSample / 8) * m_u64Channels;
 			m_u64SampleCount = 0;
@@ -259,41 +259,41 @@ class SR2_Audio
 
 				m_pReader->ReadSample(MF_SOURCE_READER_FIRST_AUDIO_STREAM, 0, &streamIndex, &flags, &timestamp, &pSample);
 
-				// ÅĞ¶ÏÊÇ·ñ½áÊø
+				// åˆ¤æ–­æ˜¯å¦ç»“æŸ
 				if (flags & MF_SOURCE_READERF_ENDOFSTREAM) 
 				{
 					if (pSample) pSample->Release();
 					break;
 				}
 
-				// Ñù±¾ÊÇ·ñÁ¬Ğø
+				// æ ·æœ¬æ˜¯å¦è¿ç»­
 				if (abs(timestamp - lastSampleEndTimestamp) > 5000) 
 				{
 					//pSample->Release();
 					//return 1; 
 					#ifdef DEBUG
-						std::cout <<"²ÉÑùµã²»Á¬Ğø¾¯¸æ" << std::endl;
+						std::cout <<"é‡‡æ ·ç‚¹ä¸è¿ç»­è­¦å‘Š" << std::endl;
 					#endif
 				}
 
-				// ¿ÕÑù±¾¹ÊÕÏ
+				// ç©ºæ ·æœ¬æ•…éšœ
 				if(!pSample)
 				{
 					continue; 
 				}
 				
-				// ×ª»»³ÉÁ¬Ğø»º³åÇø
+				// è½¬æ¢æˆè¿ç»­ç¼“å†²åŒº
 				IMFMediaBuffer* pBuffer = NULL;
 				pSample->ConvertToContiguousBuffer(&pBuffer);
 				BYTE* pData = NULL;
 				DWORD dataLength = 0;
 				pBuffer->Lock(&pData, NULL, &dataLength);
 
-				// ¼ÆËã²ÉÑùµãÊı
+				// è®¡ç®—é‡‡æ ·ç‚¹æ•°
 				INT32 SamplesNumInBuffer = dataLength / bytesPerSampleGroup;
 				INT16* pSamples = (INT16*)pData;
 
-				// ÌáÈ¡²ÉÑùµã Ö»È¡µÚÒ»¸öÍ¨µÀ
+				// æå–é‡‡æ ·ç‚¹ åªå–ç¬¬ä¸€ä¸ªé€šé“
 				for (int i = 0; i < SamplesNumInBuffer; i++) {
 					m_pSamples[m_u64SampleCount] = pSamples[i * m_u64Channels];
 					m_u64SampleCount++;
@@ -302,10 +302,10 @@ class SR2_Audio
 					#endif
 				}
 
-				// ¸üĞÂ½áÎ²Ê±¼ä
+				// æ›´æ–°ç»“å°¾æ—¶é—´
 				lastSampleEndTimestamp = timestamp + (SamplesNumInBuffer * 10000000LL / m_u64SampleRate);
 
-				// ÇåÀí
+				// æ¸…ç†
 				pBuffer->Unlock();
 				pBuffer->Release();
 				pSample->Release();
@@ -313,34 +313,34 @@ class SR2_Audio
 
 
 			#ifdef DEBUG
-				std::cout << "Ô¤¼Æ" << totalSamples << "¸ö²ÉÑùµã" << std::endl;
-				std::cout << m_u64SampleCount << "¸ö²ÉÑùµã±»¶ÁÈ¡" << std::endl;
+				std::cout << "é¢„è®¡" << totalSamples << "ä¸ªé‡‡æ ·ç‚¹" << std::endl;
+				std::cout << m_u64SampleCount << "ä¸ªé‡‡æ ·ç‚¹è¢«è¯»å–" << std::endl;
 			#endif
 
 			return 0;
 		}
 
 
-		/* ----- ´Ó²ÉÑùµã»º³åÇø¼ÆËãÃ¿Ö¡ÆµÂÊºÍÕñ·ù ---- */
+		/* ----- ä»é‡‡æ ·ç‚¹ç¼“å†²åŒºè®¡ç®—æ¯å¸§é¢‘ç‡å’ŒæŒ¯å¹… ---- */
 		int CalculatePreFrame()
 		{
-			// ¼ÆËã¶àÉÙ¸ö²ÉÑùµãÒ»¸öÖ¡
+			// è®¡ç®—å¤šå°‘ä¸ªé‡‡æ ·ç‚¹ä¸€ä¸ªå¸§
 			m_uFrameNumberPerFrame = max(2048 , m_u64SampleRate / m_uGameFrameRate * m_uAudioFrameRateProportion * 1.35);
 		
-			// Ô¤ÁôÖ¡¿Õ¼ä
+			// é¢„ç•™å¸§ç©ºé—´
 			m_uNumFrames = m_u64SampleCount / m_u64SampleRate * m_uGameFrameRate * m_uAudioFrameRateProportion + 1;
 			if (m_pAmplitude)free(m_pAmplitude);
 			m_pAmplitude = (FLOAT*)malloc(sizeof(FLOAT) * (m_uNumFrames  * m_uFrameNumberPerFrame / 2));
 
-			// ·ÖÅäÈÎÎñ¸øÖ¡¼ÆËãÏß³Ì
+			// åˆ†é…ä»»åŠ¡ç»™å¸§è®¡ç®—çº¿ç¨‹
 			int num_threads = 16;
 			WorkerThreadInput* ThreadInputPond = (WorkerThreadInput*)malloc(m_uNumFrames * sizeof(WorkerThreadInput));
 			HANDLE* threads = (HANDLE*)malloc(num_threads * sizeof(HANDLE));
 			int chunk = ( m_uNumFrames - 1) / num_threads + 1;
 			m_uProgress = 0;
 			#ifdef DEBUG
-				std::cout << "×ÜÖ¡Êı£º" << m_uNumFrames - 1<<std::endl;
-				std::cout << "¹¤×÷Ïß³Ì´´½¨" << std::endl;
+				std::cout << "æ€»å¸§æ•°ï¼š" << m_uNumFrames - 1<<std::endl;
+				std::cout << "å·¥ä½œçº¿ç¨‹åˆ›å»º" << std::endl;
 			#endif
 			for (int t = 0; t < num_threads; ++t)
 			{
@@ -350,16 +350,16 @@ class SR2_Audio
 				if(ThreadInputPond[t].BegFrame <= m_uNumFrames)
 					threads[t] = CreateThread(NULL,0, WorkerThread, &ThreadInputPond[t], 0, NULL);
 				#ifdef DEBUG
-						std::cout << "¿ªÊ¼Ö¡£º"<< ThreadInputPond[t].BegFrame <<"½áÊøÖ¡£º"<< ThreadInputPond[t].EndFram << std::endl;
+						std::cout << "å¼€å§‹å¸§ï¼š"<< ThreadInputPond[t].BegFrame <<"ç»“æŸå¸§ï¼š"<< ThreadInputPond[t].EndFram << std::endl;
 				#endif
 			}
 			#ifdef DEBUG
 					std::cout << std::endl;
 			#endif
 
-			//µÈ´ıÏß³ÌÍê³É
+			//ç­‰å¾…çº¿ç¨‹å®Œæˆ
 			#ifdef DEBUG
-				std::cout << "¹¤×÷Ïß³ÌÍê³É";
+				std::cout << "å·¥ä½œçº¿ç¨‹å®Œæˆ";
 			#endif
 			WaitForMultipleObjects(num_threads,threads,TRUE,INFINITE);
 			#ifdef DEBUG
@@ -371,7 +371,7 @@ class SR2_Audio
 		}
 
 
-		/* ------- ¾²Ì¬¸µÀïÒ¶×ª»¯¹¤×÷Ïß³Ìº¯Êı -------- */
+		/* ------- é™æ€å‚…é‡Œå¶è½¬åŒ–å·¥ä½œçº¿ç¨‹å‡½æ•° -------- */
 		static DWORD WorkerThread(LPVOID Input_)
 		{	
 			for (int i = ((WorkerThreadInput*)Input_)->BegFrame; i <= ((WorkerThreadInput*)Input_)-> EndFram; ++i)
@@ -398,12 +398,12 @@ class SR2_Audio
 		};
 
 
-		/* ---------- ¾²Ì¬¸µÀïÒ¶×ª»¯¼ÆËãºËĞÄ --------- */
+		/* ---------- é™æ€å‚…é‡Œå¶è½¬åŒ–è®¡ç®—æ ¸å¿ƒ --------- */
 		static void calculateDFT(INT32* points, UINT32 PointNumPreFrame, UINT32 SampleRate, FLOAT* pResult_Amplitude) 
 		{
 			const float freq_resolution = SampleRate / PointNumPreFrame;
 
-			// ×ª»»²¢¹éÒ»»¯µ½[-1, 1] ²¢Ö´ĞĞ´°º¯Êı
+			// è½¬æ¢å¹¶å½’ä¸€åŒ–åˆ°[-1, 1] å¹¶æ‰§è¡Œçª—å‡½æ•°
 			float* samples = new float[PointNumPreFrame];
 			for (int i = 0; i < PointNumPreFrame; ++i)
 			{
@@ -419,31 +419,31 @@ class SR2_Audio
 				#endif
 			}
 
-			// ¼ÆËãÆµÂÊºÍÕñ·ù
+			// è®¡ç®—é¢‘ç‡å’ŒæŒ¯å¹…
 			for (int k = 1; k <= PointNumPreFrame / 2; ++k) {
 				float sum_real = 0.0f;
 				float sum_imag = 0.0f;
 
-				// DFT¼ÆËãºËĞÄ
+				// DFTè®¡ç®—æ ¸å¿ƒ
 				for (int n = 1; n < PointNumPreFrame; ++n) {
 					float angle = 2.0f * PI * k * n / PointNumPreFrame;
 					sum_real += samples[n] * cosf(angle);
 					sum_imag -= samples[n] * sinf(angle);
 				}
 
-				// ¼ÆËã·ù¶È²¢¹éÒ»»¯
+				// è®¡ç®—å¹…åº¦å¹¶å½’ä¸€åŒ–
 				float amp = 0.0f;
-				if (k == 0) {			// Ö±Á÷·ÖÁ¿
+				if (k == 0) {			// ç›´æµåˆ†é‡
 					amp = sqrtf(sum_real * sum_real + sum_imag * sum_imag) / PointNumPreFrame;
 				}
-				else if (k == PointNumPreFrame / 2) {	// NyquistÆµÂÊ
+				else if (k == PointNumPreFrame / 2) {	// Nyquisté¢‘ç‡
 					amp = sqrtf(sum_real * sum_real + sum_imag * sum_imag) / PointNumPreFrame;
 				}
-				else {					// ÆäËûÆµÂÊ
+				else {					// å…¶ä»–é¢‘ç‡
 					amp = 2.0f * sqrtf(sum_real * sum_real + sum_imag * sum_imag) / PointNumPreFrame;
 				}
 
-				// Ğ´Èë»º³åÇø
+				// å†™å…¥ç¼“å†²åŒº
 				pResult_Amplitude[k - 1] = amp;
 			}
 
@@ -451,32 +451,32 @@ class SR2_Audio
 		}
 
 
-		/* --------------- ÆµÂÊÑ¡ÔñÆ÷ ---------------- */
+		/* --------------- é¢‘ç‡é€‰æ‹©å™¨ ---------------- */
 		inline int FrequencyProcessors()
 		{
-			//¿Õ¼äÉêÇë
+			//ç©ºé—´ç”³è¯·
 			if(m_pFrequencyInGame)free(m_pFrequencyInGame);
 			m_pFrequencyInGame = (UINT32*)malloc(m_uGeneratorsNumber * m_uNumFrames * sizeof(UINT32) );
 			if(m_pAmplitudeInGame)free(m_pAmplitudeInGame);
 			m_pAmplitudeInGame = (FLOAT*)malloc(m_uGeneratorsNumber * m_uNumFrames * sizeof(FLOAT));
 
-			//Ñ¡ÔñĞÔ±£Áô
+			//é€‰æ‹©æ€§ä¿ç•™
 			for (UINT32 frame = 0 ; frame < m_uNumFrames ; frame++ )
 			{ 
-				//¶¨Î»ÆğÊ¼Î»ÖÃ
+				//å®šä½èµ·å§‹ä½ç½®
 				FLOAT* frameAmplitudes = m_pAmplitude + frame * m_uFrameNumberPerFrame / 2;
 				UINT32 outputStart = frame * m_uGeneratorsNumber;
-
-				// ¾ùÔÈÈ¡Ñù²¢Ìî³äÆµÂÊ/Õñ·ù
+				
+				// å‡åŒ€å–æ ·å¹¶å¡«å……é¢‘ç‡/æŒ¯å¹…
 				for (UINT32 i = 0; i < m_uGeneratorsNumber; ++i)
 				{
-					// Ô­Ê¼ÆµÆ×Ë÷Òı£¨0,2,4,...,1022£©
-					UINT32 srcIdx = i * m_uFrameNumberPerFrame  / 2 / m_uGeneratorsNumber;
+					// åŸå§‹é¢‘è°±ç´¢å¼•ï¼ˆ0,2,4,...,1022ï¼‰
+					UINT32 srcIdx = i * m_uFrameNumberPerFrame  / 2.2 / m_uGeneratorsNumber;
 
-					// ÆµÂÊ¼ÆËã£¨ËÄÉáÎåÈë£©
+					// é¢‘ç‡è®¡ç®—ï¼ˆå››èˆäº”å…¥ï¼‰
 					UINT64 freq = static_cast<UINT64>(std::round( (srcIdx * m_u64SampleRate) / static_cast<double>( m_uFrameNumberPerFrame ) ) );
 
-					// Ö±½ÓÈ¡¶ÔÓ¦Õñ·ù
+					// ç›´æ¥å–å¯¹åº”æŒ¯å¹…
 					m_pFrequencyInGame[outputStart + i] = static_cast<UINT32>(freq);
 					m_pAmplitudeInGame[outputStart + i] = frameAmplitudes[srcIdx];
 				}
@@ -485,19 +485,19 @@ class SR2_Audio
 		}
 
 
-		/* ----------- Ğ´Èësr2×Ô¶¨Òå×é¼ş ------------- */
+		/* ----------- å†™å…¥sr2è‡ªå®šä¹‰ç»„ä»¶ ------------- */
 		int WriteToSubassemblies()
 		{
 			const char* filePath = "C:\\Users\\tride\\AppData\\LocalLow\\Jundroo\\SimpleRockets 2\\UserData\\Subassemblies\\MediaTestGenerate.xml";
 
-			// ´ò¿ªÎÄ¼şÒÔĞ´Èë
+			// æ‰“å¼€æ–‡ä»¶ä»¥å†™å…¥
 			FILE* file = fopen(filePath, "w");
 			if (file == NULL) {
-				printf("ÎŞ·¨´´½¨ÎÄ¼ş£º%s\n", filePath);
+				printf("æ— æ³•åˆ›å»ºæ–‡ä»¶ï¼š%s\n", filePath);
 				return 1;
 			}
 
-			// Ğ´Èë
+			// å†™å…¥
 			fprintf(file, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
 			fprintf(file, "<DesignerParts>\n");
 			fprintf(file, "  <DesignerPart name=\"MediaTestGenerate\" category=\"Sub Assemblies\" description=\"\" order=\"0\" showInDesigner=\"true\">\n");
@@ -515,7 +515,7 @@ class SR2_Audio
 				fprintf(file, "          <FuelTank capacity=\"4872.65625\" fuel=\"4872.65625\" />\n");
 				fprintf(file, "          <CrewCompartment capacity=\"1\" />\n");
 				fprintf(file, "          <ScalablePod mass=\"10.8841038\" />\n");
-				fprintf(file, "          <FlightProgram maxInstructionsPerFrame=\"2\" powerConsumptionPerInstruction=\"0.01\" broadcastPowerConsumptionPerByte=\"0.1\">\n");
+				fprintf(file, "          <FlightProgram maxInstructionsPerFrame=\"3\" powerConsumptionPerInstruction=\"0.01\" broadcastPowerConsumptionPerByte=\"0.1\">\n");
 				fprintf(file, "            <Program name=\"New Program123\">\n");
 				fprintf(file, "              <Variables>\n");
 				fprintf(file, "                <Variable name=\"data\">\n");
@@ -559,6 +559,11 @@ class SR2_Audio
 				fprintf(file, "                  <Constant number=\"1\" />\n");
 				fprintf(file, "                  <Instructions>\n");
 				fprintf(file, "                    <SetCraftProperty property=\"Sound.Beep\" id=\"4\" style=\"play-beep\">\n");
+				fprintf(file, "                      <Constant text = \"0\" />\n");
+				fprintf(file, "                      <Constant text = \"0\" />\n");
+				fprintf(file, "                      <Constant text = \"0\" />\n");
+				fprintf(file, "                    </SetCraftProperty>\n");
+				fprintf(file, "                    <SetCraftProperty property = \"Sound.Beep\" id=\"5\" style=\"play-beep\">\n");
 				fprintf(file, "                      <ListOp op=\"get\" style=\"list-get\">\n");
 				fprintf(file, "                        <Variable list=\"true\" local=\"false\" variableName=\"data\" />\n");
 				fprintf(file, "                        <Variable list=\"false\" local=\"true\" variableName=\"i\" />\n");
@@ -589,11 +594,11 @@ class SR2_Audio
 			fprintf(file, "    </Assembly>\n");
 			fprintf(file, "  </DesignerPart>\n");
 			fprintf(file, "</DesignerParts>\n");
-			// ¹Ø±ÕÎÄ¼ş
+			// å…³é—­æ–‡ä»¶
 			fclose(file);
 
 			#ifdef DEBUG
-				printf("ÎÄ¼ş´´½¨³É¹¦²¢ÒÑĞ´ÈëÄÚÈİ£º%s\n", filePath);
+				printf("æ–‡ä»¶åˆ›å»ºæˆåŠŸå¹¶å·²å†™å…¥å†…å®¹ï¼š%s\n", filePath);
 			#endif
 		}
 };
